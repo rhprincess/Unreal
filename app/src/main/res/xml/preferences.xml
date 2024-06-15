@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:allowDividerAbove="false"
+        app:icon="@drawable/transparent_icon"
+        app:iconSpaceReserved="true"
+        app:title="@string/theme">
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:icon="@drawable/outline_color_lens_24"
+            android:key="follow_system_accent"
+            android:title="@string/theme_color_system"
+            app:isPreferenceVisible="false" />
+
+        <rikka.preference.SimpleMenuPreference
+            android:defaultValue="DEFAULT"
+            android:entries="@array/color_texts"
+            android:entryValues="@array/color_values"
+            android:icon="@drawable/outline_format_color_fill_24"
+            android:key="theme_color"
+            android:summary="%s"
+            android:title="@string/theme_color" />
+        <rikka.preference.SimpleMenuPreference
+            android:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
+            android:entries="@array/theme_texts"
+            android:entryValues="@array/theme_values"
+            android:icon="@drawable/outline_dark_mode_24"
+            android:key="dark_theme"
+            android:summary="%s"
+            android:title="@string/dark_theme" />
+        <rikka.material.preference.MaterialSwitchPreference
+            android:icon="@drawable/outline_invert_colors_24"
+            android:key="black_dark_theme"
+            android:summary="@string/pure_black_dark_theme_summary"
+            android:title="@string/pure_black_dark_theme" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:allowDividerAbove="false"
+        app:icon="@drawable/transparent_icon"
+        app:iconSpaceReserved="true"
+        app:title="@string/user_interface">
+
+        <rikka.material.preference.MaterialSwitchPreference
+            android:defaultValue="true"
+            android:key="show_appbar_scrim"
+            app:icon="@drawable/outline_lens_blur_24"
+            app:summary="当应用操作栏折叠时显示一层遮罩"
+            app:title="显示顶栏遮罩" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:icon="@drawable/transparent_icon"
+        app:iconSpaceReserved="true"
+        app:title="@string/module">
+
+        <rikka.material.preference.MaterialSwitchPreference
+            app:icon="@drawable/outline_gpp_maybe_24"
+            app:iconSpaceReserved="true"
+            app:key="force_show_permission_lack"
+            app:summary="@string/show_permission_summary"
+            app:title="@string/force_show_permission_lack" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            app:icon="@drawable/outline_extension_off_24"
+            app:iconSpaceReserved="true"
+            app:key="disable_temporarily"
+            app:summary="@string/disable_module_summary"
+            app:title="@string/disable_module" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            app:icon="@drawable/outline_audiotrack_24"
+            app:iconSpaceReserved="true"
+            app:key="play_audio"
+            app:summary="@string/play_audio_summary"
+            app:title="@string/play_audio" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            app:icon="@drawable/outline_video_file_24"
+            app:iconSpaceReserved="true"
+            app:key="force_private_dir"
+            app:summary="@string/force_private_dir_summary"
+            app:title="@string/force_private_dir" />
+
+        <rikka.material.preference.MaterialSwitchPreference
+            app:icon="@drawable/outline_motion_photos_off_24"
+            app:iconSpaceReserved="true"
+            app:key="disable_toast"
+            app:summary="@string/disable_toast_summary"
+            app:title="@string/disable_toast" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

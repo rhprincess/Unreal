@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_detail_nav"
+    app:startDestination="@id/apps_fragment">
+    <fragment
+        android:id="@+id/apps_fragment"
+        android:name="io.twinkle.unreal.ui.fragment.AppsFragment"
+        tools:layout="@layout/fragment_apps"
+        android:label="apps">
+        <action
+            android:id="@+id/action_apps_fragment_to_app_detail_fragment"
+            app:destination="@id/app_detail_fragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/app_detail_fragment"
+        android:name="io.twinkle.unreal.ui.fragment.AppDetailFragment"
+        tools:layout="@layout/fragment_app_detail"
+        android:label="app_list">
+        <argument
+            android:name="appPackageName"
+            app:argType="string" />
+
+        <deepLink
+            android:id="@+id/app_detail_deeplink"
+            app:uri="unreal://module?appPackageName={appPackageName}" />
+    </fragment>
+    <action
+        android:id="@+id/action_app_detail_fragment_to_apps_fragment"
+        app:destination="@id/apps_fragment"
+        app:enterAnim="@anim/fragment_enter"
+        app:exitAnim="@anim/fragment_exit"
+        app:popUpTo="@id/home_fragment"
+        app:popUpToInclusive="true" />
+</navigation>

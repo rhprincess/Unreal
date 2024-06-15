@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/app_detail_nav"
+        android:icon="@drawable/outline_app_registration_24"
+        android:title="@string/title_apps" />
+
+    <item
+        android:id="@+id/home_fragment"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/settings_fragment"
+        android:icon="@drawable/outline_settings_24"
+        android:title="@string/title_settings" />
+
+</menu>

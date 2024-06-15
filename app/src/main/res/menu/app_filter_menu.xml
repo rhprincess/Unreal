@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/refresh_data"
+        android:title="@string/menu_refresh" />
+
+    <item
+        android:title="@string/menu_hide"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/item_filter_system"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/menu_system_app" />
+
+            <item
+                android:id="@+id/item_filter_not_camera_apps"
+                android:checkable="true"
+                android:checked="true"
+                android:title="@string/menu_not_camera_app" />
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/menu_sort"
+        app:showAsAction="never">
+        <menu>
+
+            <group
+                android:id="@+id/sort_way_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_sort_by_name"
+                    android:title="@string/item_sort_by_name" />
+                <item
+                    android:id="@+id/item_sort_by_package_name"
+                    android:title="@string/item_sort_by_package_name" />
+                <item
+                    android:id="@+id/item_sort_by_install_time"
+                    android:title="@string/item_sort_by_install_time" />
+                <item
+                    android:id="@+id/item_sort_by_update_time"
+                    android:checked="true"
+                    android:title="@string/item_sort_by_update_time" />
+            </group>
+
+            <item
+                android:id="@+id/reverse"
+                android:checkable="true"
+                android:title="@string/menu_reverse" />
+        </menu>
+    </item>
+</menu>
