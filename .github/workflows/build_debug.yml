@@ -3,7 +3,8 @@ name: build debug artifact.
 on:
   push:
     branches: [ "main" ]
-    tags: 'v*'
+    tags:
+    - 'v*'
   pull_request:
     branches: [ "main" ]
 
@@ -26,11 +27,8 @@ jobs:
     - name: Build debug application package with Gradle
       run: ./gradlew assembleDebug
 
-    - name: List the current directory.
-      run: ls -al
-
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.3
       with:
-        name: app-debug
+        name: app-debug.apk
         path: app/build/outputs/apk/debug/app-debug.apk
