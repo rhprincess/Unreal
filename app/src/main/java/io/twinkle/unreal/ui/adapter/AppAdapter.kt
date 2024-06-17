@@ -32,7 +32,6 @@ import java.text.Collator
 import java.util.Locale
 import java.util.Objects
 
-
 class AppAdapter(
     private val fragment: AppsFragment,
     private var packageInfos: List<PackageInfo>
@@ -158,15 +157,15 @@ class AppAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun sortBy(way: AppSort) {
-        fragment.lifecycleScope.launch {
-            vcampApp.settings.edit {
-                it[Settings.APPS_SORT] = way.name
-            }
-        }
         lastSortWay = sortWay
         sortWay = way
         isLoaded = false
         fragment.runAsync {
+            fragment.lifecycleScope.launch {
+                vcampApp.settings.edit {
+                    it[Settings.APPS_SORT] = way.name
+                }
+            }
             val sortedResult = when (way) {
                 AppSort.APP_NAME -> filteredInfos.sortedWith(Comparators.byLabel)
                 AppSort.INSTALL_TIME -> filteredInfos.sortedWith(Comparators.byInstallTime)
@@ -189,27 +188,30 @@ class AppAdapter(
     }
 
     fun refresh() {
-        isLoaded = false
-        val apps: List<PackageInfo> = vcampApp.packageManager.getInstalledPackages(
-            PackageManager.GET_PERMISSIONS or PackageManager.GET_CONFIGURATIONS
-        )
-        // 如果无任何数据变化
-        if ((lastSortWay == sortWay) and (lastHideSystemApps == hideSystemApps) and (lastHideNotCameraApps == hideNotCameraApps)) {
-            if (packageInfos.containsAll(apps)) {
-                isLoaded = true
-                return
+        // 使用异步进行更新
+        fragment.runAsync {
+            isLoaded = false
+            val apps: List<PackageInfo> = vcampApp.packageManager.getInstalledPackages(
+                PackageManager.GET_PERMISSIONS or PackageManager.GET_CONFIGURATIONS
+            )
+            // 如果无任何数据变化
+            if ((lastSortWay == sortWay) and (lastHideSystemApps == hideSystemApps) and (lastHideNotCameraApps == hideNotCameraApps)) {
+                if (packageInfos.containsAll(apps)) {
+                    isLoaded = true
+                    return@runAsync
+                }
             }
+            packageInfos = apps
+            filteredInfos = apps
+            filteredInfos =
+                if (hideSystemApps) filteredInfos.filter { pi -> pi.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM == 0 } else packageInfos
+            filteredInfos = if (hideNotCameraApps) filteredInfos.filter { pi ->
+                if (pi.requestedPermissions != null) pi.requestedPermissions.contains(
+                    android.Manifest.permission.CAMERA
+                ) else false
+            } else filteredInfos
+            sortBy(sortWay)
         }
-        packageInfos = apps
-        filteredInfos = apps
-        filteredInfos =
-            if (hideSystemApps) filteredInfos.filter { pi -> pi.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM == 0 } else packageInfos
-        filteredInfos = if (hideNotCameraApps) filteredInfos.filter { pi ->
-            if (pi.requestedPermissions != null) pi.requestedPermissions.contains(
-                android.Manifest.permission.CAMERA
-            ) else false
-        } else filteredInfos
-        sortBy(sortWay)
     }
 
     @SuppressLint("NotifyDataSetChanged")
